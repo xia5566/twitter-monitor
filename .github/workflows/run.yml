@@ -1,0 +1,31 @@
+name: Twitter Monitor
+
+on:
+  schedule:
+    # 每 30 分钟运行一次 (GitHub 可能会有几分钟延迟)
+    - cron: '*/1 * * * *'
+  workflow_dispatch: # 允许手动点按钮测试
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run monitor script
+        env:
+          # 读取你在 Settings 里填写的密码
+          TARGET_USER: ${{ secrets.TARGET_USER }}
+          MAIL_USER: ${{ secrets.MAIL_USER }}
+          MAIL_PASS: ${{ secrets.MAIL_PASS }}
+          RECEIVER: ${{ secrets.RECEIVER }}
+        run: python main.py
