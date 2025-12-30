@@ -13,8 +13,7 @@ RECEIVER = os.environ.get("RECEIVER")
 
 # 使用 Nitter 的 RSS 源 (无需 API Key，无需登录)
 # 如果此节点挂了，可以换 rss.nitter.net 等其他公共节点
-RSS_URL = f"https://nitter.net/{TARGET_USER}/rss"
-
+RSS_URL = f"https://nitter.privacydev.net/{TARGET_USER}/rss"
 def send_email(title, link):
     mail_host = "smtp.qq.com"
     message = MIMEText(f"【新推文】\n\n{title}\n\n链接: {link}", 'plain', 'utf-8')
@@ -56,4 +55,5 @@ def check_twitter():
         print(f"出错: {e}")
 
 if __name__ == "__main__":
+
     check_twitter()
