@@ -2,7 +2,7 @@ name: Twitter Monitor
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # 每 30 分钟运行一次
+    - cron: '*/1 * * * *'  # 每 30 分钟运行一次
   workflow_dispatch:      # 允许手动点击运行
 
 jobs:
