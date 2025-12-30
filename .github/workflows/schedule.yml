@@ -1,0 +1,30 @@
+name: Twitter Monitor
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # 每 30 分钟运行一次
+  workflow_dispatch:      # 允许手动点击运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run script
+        env: # 这里引用我们在仓库设置里填的秘密变量
+          TARGET_USER: ${{ secrets.TARGET_USER }}
+          MAIL_USER: ${{ secrets.MAIL_USER }}
+          MAIL_PASS: ${{ secrets.MAIL_PASS }}
+          RECEIVER: ${{ secrets.RECEIVER }}
+        run: python main.py
